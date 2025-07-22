@@ -4,7 +4,7 @@ import jwt from "jsonwebtoken";
 import sendEmail from "../utils/sendEmail.js";
 import dotenv from "dotenv";
 import crypto from "crypto";
-import { createUserSchema } from '../validations/userValidation.js';
+import { createUserSchema } from "../validations/userValidation.js";
 
 dotenv.config();
 
@@ -13,7 +13,7 @@ const CLIENT_URL = process.env.CLIENT_URL;
 
 export async function register(req, res) {
   try {
-    const { name, lastname, email, password, confirmPassword } =
+    const { name, lastname, email, password, confirmPassword, role, avatar} =
       req.body;
 
     if (!name || !lastname || !email || !password || !confirmPassword) {
@@ -230,21 +230,3 @@ export async function resetPassword(req, res) {
 }
 
 
-
-
-// Fonction pour créer un nouvel utilisateur
-export const createUser = async (req, res) => {
-  const { error, value } = createUserSchema.validate(req.body);
-
-  if (error) {
-    return res.status(400).json({ error: error.details[0].message });
-  }
-
-  try {
-    const user = new User(value);
-    await user.save();
-    res.status(201).json(user);
-  } catch (err) {
-    res.status(500).json({ error: 'Erreur serveur lors de la création de l\'utilisateur.' });
-  }
-};

@@ -1,8 +1,3 @@
-import { createUser } from '../controllers/authController.js';
-import { createUserSchema } from '../validations/userValidation.js';
-
-
-
 export const validate = (schema) => (req, res, next) => {
   const { error, value } = schema.validate(req.body);
 
@@ -14,3 +9,4 @@ export const validate = (schema) => (req, res, next) => {
   req.validatedBody = value;
   next();
 };
+
