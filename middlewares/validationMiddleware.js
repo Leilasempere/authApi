@@ -6,7 +6,7 @@ export const validate = (schema) => (req, res, next) => {
   }
 
   // On stocke les données validées dans req.validatedBody
-  req.validatedBody = value;
+  
   next();
 };
 

@@ -4,7 +4,6 @@ import jwt from "jsonwebtoken";
 import sendEmail from "../utils/sendEmail.js";
 import dotenv from "dotenv";
 import crypto from "crypto";
-import { createUserSchema } from "../validations/userValidation.js";
 
 dotenv.config();
 
