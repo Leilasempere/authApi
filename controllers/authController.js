@@ -264,4 +264,17 @@ export async function resendVerificationEmail(req, res) {
   }
 }
 
+export async function logout(req, res) {
+  try {
+    res.clearCookie("token", {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "strict",
+    });
+    res.status(200).json({ message: "Déconnexion réussie." });
+  } catch (error) {
+    console.error("erreur de deconnexion:" ,error);
+    res.status(500).json({ message: "Erreur de la deconnexion." });
+  }
+} 
 

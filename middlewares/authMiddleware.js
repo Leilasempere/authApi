@@ -20,7 +20,7 @@ export const protect = (req, res, next) => {
   }
 };
 
-// Middleware pour vérifier le rôle utilisateur
+// Middleware pour vérifier le rôle utilisateur    ...recreer le tableau des roles
 export const authorize = (...roles) => (req, res, next) => {
   if (!req.user) return res.status(401).json({ message: 'Non authentifié' });
   if (!roles.includes(req.user.role)) {

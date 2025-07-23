@@ -7,6 +7,9 @@ import deleteUserCron from "./middlewares/deleteUser.js";
 import auditDependencies from './middlewares/auditDependencies.js'
 import cors from 'cors';
 import helmet from 'helmet';    
+import { authLimiter } from './middlewares/rateLimiter.js';
+import { logout } from './controllers/authController.js';
+
 
 dotenv.config();
 
@@ -25,7 +28,8 @@ app.use(helmet()); // Sécurise les en-têtes HTTP
 deleteUserCron.start();
 auditDependencies.start()
 
-app.use('/api/auth', authRoutes);
+app.use( authLimiter); // Limite le nombre de requêtes pour les routes d'authentification
+app.use('/api/auth', authRoutes);  // authLimiter est un middleware qui limite le nombre de requêtes
 
 const PORT = process.env.PORT || 5000;
 
